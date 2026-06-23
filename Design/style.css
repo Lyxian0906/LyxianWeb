@@ -78,3 +78,10 @@ p {
 	margin-top: 20px;
 	background: linear-gradient(90deg, #ef4444, #f97316);
 }
+
+#btnToLogin2, #btnPage2{
+width: 10%;
+position: absolute;
+  left: 4px;
+  top: 20px;
+}

@@ -169,7 +169,20 @@ if (googleBtn) {
     });
 }
 
+//Go to login from register
+const btnToLogin2 = document.getElementById("btnToLogin2");
+if (btnToLogin2) {
+  btnToLogin2.addEventListener("click", () => {
+    window.location.href = "/Register/Login/login.html";
+  });
+}
+
 //Go to register from login
-document.getElementById("btnPage2").addEventListener("click", () => {
+const btnPage2 = document.getElementById("btnPage2");
+if (btnPage2) {
+  btnPage2.addEventListener("click", () => {
     window.location.href = "/Register/Login/register.html";
-});
+  });
+}
+
+
