@@ -186,3 +186,21 @@ if (btnPage2) {
 }
 
 
+/* =========================
+   MUSICA 2 (BOTON)
+========================= */
+const musicBtn2 = document.getElementById("musicBtn2");
+
+musicBtn2.addEventListener("click", () => {
+
+    if (!music2Playing) {
+        bgMusic2.play();
+        music2Playing = true;
+        musicBtn2.textContent = "⏸️ Música fondo";
+    } else {
+        bgMusic2.pause();
+        music2Playing = false;
+        musicBtn2.textContent = "🎵 Música fondo";
+    }
+
+});
