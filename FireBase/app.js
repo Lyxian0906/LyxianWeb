@@ -37,7 +37,7 @@ import {
 setPersistence(auth, browserLocalPersistence)
     .catch((error) => console.log(error));
 
-if (window.location.pathname.includes("/Register/Login/login.html")) {
+if (window.location.pathname.includes("/Register-and-login/login.html")) {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             window.location.href = "/index.html";
@@ -48,7 +48,7 @@ if (window.location.pathname.includes("/Register/Login/login.html")) {
 if (window.location.pathname.includes("/index.html")) {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            window.location.href = "/Register/Login/login.html";
+            window.location.href = "/Register-and-login/login.html";
         }
     });
 }
@@ -121,7 +121,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
         await signOut(auth);
-        window.location.href = "/Register/Login/login.html";
+        window.location.href = "/Register-and-login/login.html";
     });
 }
 
@@ -142,7 +142,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     if (!user && window.location.pathname.includes("/index.html")) {
-        window.location.href = "/Register/Login/login.html";
+        window.location.href = "/Register-and-login/login.html";
     }
 });
 
@@ -173,7 +173,7 @@ if (googleBtn) {
 const btnToLogin2 = document.getElementById("btnToLogin2");
 if (btnToLogin2) {
   btnToLogin2.addEventListener("click", () => {
-    window.location.href = "/Register/Login/login.html";
+    window.location.href = "/Register-and-login/login.html";
   });
 }
 
@@ -181,7 +181,7 @@ if (btnToLogin2) {
 const btnPage2 = document.getElementById("btnPage2");
 if (btnPage2) {
   btnPage2.addEventListener("click", () => {
-    window.location.href = "/Register/Login/register.html";
+    window.location.href = "/Register-and-login/register.html";
   });
 }
 
