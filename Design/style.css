@@ -1,83 +1,80 @@
 /* ===== GLOBAL ===== */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background: linear-gradient(135deg, #0f172a, #1e293b);
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
 }
 
-/* ===== CONTAINER BOX ===== */
+/* MAIN BOX */
 .container {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 30px;
-    width: 320px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    text-align: center;
+	background: rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(12px);
+	padding: 30px;
+	border-radius: 15px;
+	width: 350px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
-/* ===== INPUTS ===== */
+/* INPUTS */
 input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    background: rgba(255,255,255,0.1);
-    color: white;
+	width: 95%;
+	align-items: center;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.1);
+	color: white;
 }
 
-input::placeholder {
-    color: #cbd5e1;
-}
-
-/* ===== BUTTONS ===== */
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: linear-gradient(90deg, #6366f1, #3b82f6);
-    color: white;
-    font-weight: bold;
-    transition: 0.3s;
-    display: block;
-}
-
+/* BUTTONS STACKED */
 .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
 }
+
+/* BUTTON STYLE */
+button {
+	width: 90%;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	background: linear-gradient(90deg, #6366f1, #3b82f6);
+	color: white;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
 button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(99,102,241,0.6);
+	transform: scale(1.05);
 }
 
 /* ===== TEXT ===== */
 h1 {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 p {
-    margin-top: 10px;
-    color: #cbd5e1;
+	margin-top: 10px;
+	color: #cbd5e1;
 }
 
 /* ===== WELCOME PAGE ===== */
 .main-container {
-    text-align: center;
+	text-align: center;
 }
 
 #logoutBtn {
-    margin-top: 20px;
-    background: linear-gradient(90deg, #ef4444, #f97316);
+	margin-top: 20px;
+	background: linear-gradient(90deg, #ef4444, #f97316);
 }

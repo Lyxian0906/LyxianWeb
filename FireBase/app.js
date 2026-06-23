@@ -98,6 +98,8 @@ if (loginBtn) {
         const password = document.getElementById("password").value;
 
         try {
+            await signInWithEmailAndPassword(auth, email, password);
+
             document.getElementById("message").textContent =
                 "Login successful! Redirecting in 6 seconds...";
 
@@ -106,7 +108,7 @@ if (loginBtn) {
             }, 6000);
 
         } catch (error) {
-            document.getElementById("message").textContent = error.message;
+            document.getElementById("message").textContent = "Error trying to login, check the mail or password";
         }
     });
 }
@@ -168,6 +170,6 @@ if (googleBtn) {
 }
 
 //Go to register from login
-function goToPage() {
+document.getElementById("btnPage2").addEventListener("click", () => {
     window.location.href = "/Register/Login/register.html";
-}
+});

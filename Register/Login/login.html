@@ -5,17 +5,19 @@
 	</head>
 	<body>
 		<link rel="stylesheet" href="/Design/style.css" />
-		<h1>Login</h1>
+		<div class="container">
+			<h1>Login</h1>
 
-		<input id="email" type="email" placeholder="Email" />
-		<input id="password" type="password" placeholder="Password" />
-		<div class="buttons">
-			<button id="loginBtn">Login</button>
-			<button id="googleBtn">Sign in with Google</button>
-			<button onclick="goToPage()">Register</button>
+			<input id="email" type="email" placeholder="Email" />
+			<input id="password" type="password" placeholder="Password" />
+            <br/>
+			<div class="buttons">
+				<button id="loginBtn">Login</button>
+				<button id="googleBtn">Sign in with Google</button>
+				<button id="btnPage2">Register</button>
+			</div>
+			<p id="message"></p>
 		</div>
-		<p id="message"></p>
-
 		<script type="module" src="/FireBase/app.js"></script>
 	</body>
 </html>
