@@ -87,9 +87,16 @@ p {
 	top: 20px;
 }
 
-#musicBtn2 {
+#musicBtn2{
 	width: 10%;
 	position: absolute;
 	right: 4px;
 	top: 20px;
+}
+
+#bgMusic2 {
+    width: 20%;
+	position: absolute;
+	right: 4px;
+	top: 80px;
 }
