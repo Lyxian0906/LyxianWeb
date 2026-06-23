@@ -186,21 +186,15 @@ if (btnPage2) {
 }
 
 
-/* =========================
-   MUSICA 2 (BOTON)
-========================= */
 const musicBtn2 = document.getElementById("musicBtn2");
+const bgMusic2 = document.getElementById("bgMusic2");
 
-musicBtn2.addEventListener("click", () => {
-
-    if (!music2Playing) {
-        bgMusic2.play();
-        music2Playing = true;
-        musicBtn2.textContent = "⏸️ Música fondo";
+if (musicBtn2 && bgMusic2) {
+  musicBtn2.addEventListener("click", () => {
+    if (bgMusic2.paused) {
+      bgMusic2.play();
     } else {
-        bgMusic2.pause();
-        music2Playing = false;
-        musicBtn2.textContent = "🎵 Música fondo";
+      bgMusic2.pause();
     }
-
-});
+  });
+}
