@@ -40,12 +40,12 @@ setPersistence(auth, browserLocalPersistence)
 if (window.location.pathname.includes("/Register/Login/login.html")) {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            window.location.href = "/Main Page/mainPage.html";
+            window.location.href = "/mainPage.html";
         }
     });
 }
 
-if (window.location.pathname.includes("/Main Page/mainPage.html")) {
+if (window.location.pathname.includes("/mainPage.html")) {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "/Register/Login/login.html";
@@ -141,7 +141,7 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
 
-    if (!user && window.location.pathname.includes("/Main Page/Index.html")) {
+    if (!user && window.location.pathname.includes("/mainPage.html")) {
         window.location.href = "/Register/Login/login.html";
     }
 });
