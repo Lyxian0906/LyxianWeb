@@ -40,12 +40,12 @@ setPersistence(auth, browserLocalPersistence)
 if (window.location.pathname.includes("/Register/Login/login.html")) {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            window.location.href = "/Index.html";
+            window.location.href = "/index.html";
         }
     });
 }
 
-if (window.location.pathname.includes("/Index.html")) {
+if (window.location.pathname.includes("/index.html")) {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "/Register/Login/login.html";
@@ -104,7 +104,7 @@ if (loginBtn) {
                 "Login successful! Redirecting in 6 seconds...";
 
             setTimeout(() => {
-                window.location.href = "/Index.html";
+                window.location.href = "/index.html";
             }, 6000);
 
         } catch (error) {
@@ -141,7 +141,7 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
 
-    if (!user && window.location.pathname.includes("/Index.html")) {
+    if (!user && window.location.pathname.includes("/index.html")) {
         window.location.href = "/Register/Login/login.html";
     }
 });
