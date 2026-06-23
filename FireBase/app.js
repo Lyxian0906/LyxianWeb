@@ -37,18 +37,18 @@ import {
 setPersistence(auth, browserLocalPersistence)
     .catch((error) => console.log(error));
 
-if (window.location.pathname.includes(".Register-and-login/login.html")) {
+if (window.location.pathname.includes("/LyxianWeb/Register-and-login/login.html")) {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            window.location.href = "index.html";
+            window.location.href = "/LyxianWeb/index.html";
         }
     });
 }
 
-if (window.location.pathname.includes("index.html")) {
+if (window.location.pathname.includes("/LyxianWeb/index.html")) {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            window.location.href = "./Register-and-login/login.html";
+            window.location.href = "/LyxianWeb/Register-and-login/login.html";
         }
     });
 }
@@ -104,7 +104,7 @@ if (loginBtn) {
                 "Login successful! Redirecting in 6 seconds...";
 
             setTimeout(() => {
-                window.location.href = "index.html";
+                window.location.href = "/LyxianWeb/index.html";
             }, 6000);
 
         } catch (error) {
@@ -121,7 +121,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
         await signOut(auth);
-        window.location.href = "./Register-and-login/login.html";
+        window.location.href = "Register-and-login/login.html";
     });
 }
 
@@ -141,8 +141,8 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
 
-    if (!user && window.location.pathname.includes("index.html")) {
-        window.location.href = "./Register-and-login/login.html";
+    if (!user && window.location.pathname.includes("/LyxianWeb/index.html")) {
+        window.location.href = "/LyxianWeb/Register-and-login/login.html";;
     }
 });
 
@@ -162,7 +162,7 @@ if (googleBtn) {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
 
-            window.location.href = "index.html";
+            window.location.href = "/LyxianWeb/index.html";
         } catch (error) {
             console.log(error.code, error.message);
         }
@@ -173,7 +173,7 @@ if (googleBtn) {
 const btnToLogin2 = document.getElementById("btnToLogin2");
 if (btnToLogin2) {
   btnToLogin2.addEventListener("click", () => {
-    window.location.href = "./Register-and-login/login.html";
+    window.location.href = "/LyxianWeb/Register-and-login/login.html";
   });
 }
 
@@ -181,7 +181,7 @@ if (btnToLogin2) {
 const btnPage2 = document.getElementById("btnPage2");
 if (btnPage2) {
   btnPage2.addEventListener("click", () => {
-    window.location.href = "./Register-and-login/register.html";
+    window.location.href = "/LyxianWeb/Register-and-login/register.html";
   });
 }
 
