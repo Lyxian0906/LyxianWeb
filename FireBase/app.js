@@ -30,12 +30,12 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 import {
-  setPersistence,
-  browserLocalPersistence
+    setPersistence,
+    browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 setPersistence(auth, browserLocalPersistence)
-  .catch((error) => console.log(error));
+    .catch((error) => console.log(error));
 
 if (window.location.pathname.includes("/Register/Login/login.html")) {
     onAuthStateChanged(auth, (user) => {
@@ -98,11 +98,14 @@ if (loginBtn) {
         const password = document.getElementById("password").value;
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            document.getElementById("message").textContent =
+                "Login successful! Redirecting in 6 seconds...";
 
-            window.location.href = "/Main Page/Index.html";
-        }
-        catch (error) {
+            setTimeout(() => {
+                window.location.href = "/Main Page/mainPage.html";
+            }, 6000);
+
+        } catch (error) {
             document.getElementById("message").textContent = error.message;
         }
     });
@@ -162,4 +165,9 @@ if (googleBtn) {
             console.log(error.code, error.message);
         }
     });
+}
+
+//Go to register from login
+function goToPage() {
+    window.location.href = "/Register/Login/register.html";
 }

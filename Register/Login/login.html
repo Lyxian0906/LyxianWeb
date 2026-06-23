@@ -1,21 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+	<head>
+		<title>Login</title>
+	</head>
+	<body>
+		<link rel="stylesheet" href="/Design/style.css" />
+		<h1>Login</h1>
 
-<h1>Login</h1>
+		<input id="email" type="email" placeholder="Email" />
+		<input id="password" type="password" placeholder="Password" />
+		<div class="buttons">
+			<button id="loginBtn">Login</button>
+			<button id="googleBtn">Sign in with Google</button>
+			<button onclick="goToPage()">Register</button>
+		</div>
+		<p id="message"></p>
 
-<input id="email" type="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-
-<button id="loginBtn">Login</button>
-<button id="googleBtn">Sign in with Google</button>
-
-<p id="message"></p>
-
-<script type="module" src="/FireBase/app.js"></script>
-
-</body>
+		<script type="module" src="/FireBase/app.js"></script>
+	</body>
 </html>
