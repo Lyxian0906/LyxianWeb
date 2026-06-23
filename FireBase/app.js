@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
+import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -16,19 +16,19 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 const firebaseConfig = {
 
-  apiKey: "AIzaSyAhrmgxBpsIkqMzy_lygy0_7z-UaZxHT4Q",
+    apiKey: "AIzaSyAhrmgxBpsIkqMzy_lygy0_7z-UaZxHT4Q",
 
-  authDomain: "lyxian-d017d.firebaseapp.com",
+    authDomain: "lyxian-d017d.firebaseapp.com",
 
-  projectId: "lyxian-d017d",
+    projectId: "lyxian-d017d",
 
-  storageBucket: "lyxian-d017d.firebasestorage.app",
+    storageBucket: "lyxian-d017d.firebasestorage.app",
 
-  messagingSenderId: "504544640908",
+    messagingSenderId: "504544640908",
 
-  appId: "1:504544640908:web:6bc1e9ee74c657f3ea60a9",
+    appId: "1:504544640908:web:6bc1e9ee74c657f3ea60a9",
 
-  measurementId: "G-VVHBK1TFS8"
+    measurementId: "G-VVHBK1TFS8"
 
 };
 
@@ -81,11 +81,16 @@ if (registerBtn) {
 
             const user = userCredential.user;
 
+            await sendEmailVerification(user);
+
             await setDoc(doc(db, "users", user.uid), {
                 username: username,
                 email: email,
                 createdAt: Date.now()
             });
+
+            document.getElementById("message").textContent =
+                "Account created! Check your email to verify your account.";
 
             document.getElementById("message").textContent = "Account created!";
         }
@@ -107,7 +112,19 @@ if (loginBtn) {
         const password = document.getElementById("password").value;
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+
+            const userCredential =
+                await signInWithEmailAndPassword(auth, email, password);
+
+            const user = userCredential.user;
+
+            // 🔥 CHECK EMAIL VERIFICATION HERE
+            if (!user.emailVerified) {
+                await signOut(auth);
+                document.getElementById("message").textContent =
+                    "Verify your email first.";
+                return;
+            }
 
             document.getElementById("message").textContent =
                 "Login successful! Redirecting in 6 seconds...";
@@ -117,7 +134,8 @@ if (loginBtn) {
             }, 6000);
 
         } catch (error) {
-            document.getElementById("message").textContent = "Error trying to login, check the mail or password";
+            document.getElementById("message").textContent =
+                "Error trying to login, check email or password";
         }
     });
 }
