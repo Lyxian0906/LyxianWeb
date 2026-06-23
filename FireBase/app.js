@@ -14,16 +14,25 @@ import {
     setDoc,
     getDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
 const firebaseConfig = {
-    apiKey: "AIzaSyAmLXlBnKwcpT7MS3PllnDo1uqYoLPnn9E",
-    authDomain: "lyxian.firebaseapp.com",
-    projectId: "lyxian",
-    storageBucket: "lyxian.firebasestorage.app",
-    messagingSenderId: "251831202710",
-    appId: "1:251831202710:web:bfdfbed008a834c18ca3b7",
-    measurementId: "G-RQ4EXVG1H2"
+
+  apiKey: "AIzaSyAhrmgxBpsIkqMzy_lygy0_7z-UaZxHT4Q",
+
+  authDomain: "lyxian-d017d.firebaseapp.com",
+
+  projectId: "lyxian-d017d",
+
+  storageBucket: "lyxian-d017d.firebasestorage.app",
+
+  messagingSenderId: "504544640908",
+
+  appId: "1:504544640908:web:6bc1e9ee74c657f3ea60a9",
+
+  measurementId: "G-VVHBK1TFS8"
+
 };
+
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -172,17 +181,17 @@ if (googleBtn) {
 //Go to login from register
 const btnToLogin2 = document.getElementById("btnToLogin2");
 if (btnToLogin2) {
-  btnToLogin2.addEventListener("click", () => {
-    window.location.href = "/LyxianWeb/Register-and-login/login.html";
-  });
+    btnToLogin2.addEventListener("click", () => {
+        window.location.href = "/LyxianWeb/Register-and-login/login.html";
+    });
 }
 
 //Go to register from login
 const btnPage2 = document.getElementById("btnPage2");
 if (btnPage2) {
-  btnPage2.addEventListener("click", () => {
-    window.location.href = "/LyxianWeb/Register-and-login/register.html";
-  });
+    btnPage2.addEventListener("click", () => {
+        window.location.href = "/LyxianWeb/Register-and-login/register.html";
+    });
 }
 
 
@@ -190,11 +199,11 @@ const musicBtn2 = document.getElementById("musicBtn2");
 const bgMusic2 = document.getElementById("bgMusic2");
 
 if (musicBtn2 && bgMusic2) {
-  musicBtn2.addEventListener("click", () => {
-    if (bgMusic2.paused) {
-      bgMusic2.play();
-    } else {
-      bgMusic2.pause();
-    }
-  });
+    musicBtn2.addEventListener("click", () => {
+        if (bgMusic2.paused) {
+            bgMusic2.play();
+        } else {
+            bgMusic2.pause();
+        }
+    });
 }
