@@ -173,6 +173,26 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
+
+//Second "Welcome"
+onAuthStateChanged(auth, async (user) => {
+    const welcome2 = document.getElementById("welcome2");
+
+    if (user && welcome2) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            welcome2.textContent = "This is " + data.username + "'s tree";
+        }
+    }
+
+    if (!user && window.location.pathname.includes("/LyxianWeb/MyTree/mytree.html")) {
+        window.location.href = "/LyxianWeb/Register-and-login/login.html";;
+    }
+});
+
 //Google Login
 import {
     GoogleAuthProvider,
@@ -232,5 +252,36 @@ const myTree = document.getElementById("MyTree");
 if (myTree) {
     myTree.addEventListener("click", () => {
         window.location.href = "/LyxianWeb/MyTree/mytree.html";
+    });
+}
+
+// Cargar tema guardado
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    themeBtn.textContent = "☀️";
+}
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        themeBtn.textContent = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        themeBtn.textContent = "🌙";
+    }
+
+});
+
+//Go back 
+
+const goback = document.getElementById("goback");
+if (goback) {
+    const goback = document.getElementById("goback");
+    console.log(goback);
+    goback.addEventListener("click", () => {
+        window.location.href = "/LyxianWeb/index.html";
     });
 }
