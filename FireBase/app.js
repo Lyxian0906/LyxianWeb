@@ -164,7 +164,7 @@ onAuthStateChanged(auth, async (user) => {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-            welcome.textContent = "Welcome " + data.username;
+            welcome.textContent = "Welcome to (), " + data.username;
         }
     }
 
@@ -223,5 +223,14 @@ if (musicBtn2 && bgMusic2) {
         } else {
             bgMusic2.pause();
         }
+    });
+}
+
+//My tree
+
+const myTree = document.getElementById("MyTree");
+if (myTree) {
+    myTree.addEventListener("click", () => {
+        window.location.href = "/LyxianWeb/MyTree/mytree.html";
     });
 }

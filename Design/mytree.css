@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+}
+
+.scene {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+}
+
+/* BALL */
+.ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgb(157, 202, 225);
+    border-radius: 50%;
+
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
+
+    animation: fall 2s ease-in forwards;
+}
+
+/* FLASH */
+.flash {
+    position: absolute;
+    left: 50%;
+    bottom: 100px;
+
+    width: 0;
+    height: 0;
+
+    border-radius: 50%;
+    background: linear-gradient(90deg, #a6c2e8, #9deeea);
+
+    transform: translate(-50%, 50%);
+
+    animation: explode 1s ease-out 2s forwards;
+
+}
+
+@keyframes fall {
+    0% {
+        top: 50px;
+    }
+
+    100% {
+        top: calc(100vh - 120px);
+    }
+}
+@keyframes explode {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        width: 250vw;
+        height: 250vw;
+        opacity: 0;
+    }
+}
+
+
+.content {
+    position: relative;
+    z-index: 2;
+}
