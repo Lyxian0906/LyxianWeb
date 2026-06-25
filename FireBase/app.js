@@ -247,34 +247,6 @@ if (musicBtn2 && bgMusic2) {
 }
 
 //My tree
-
-const myTree = document.getElementById("MyTree");
-if (myTree) {
-    myTree.addEventListener("click", () => {
-        window.location.href = "/LyxianWeb/MyTree/mytree.html";
-    });
-}
-
-// Cargar tema guardado
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-    themeBtn.textContent = "☀️";
-}
-
-themeBtn.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark");
-
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        themeBtn.textContent = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        themeBtn.textContent = "🌙";
-    }
-
-});
-
 //Go back 
 
 const goback = document.getElementById("goback");
@@ -285,3 +257,80 @@ if (goback) {
         window.location.href = "/LyxianWeb/index.html";
     });
 }
+
+
+// MENU
+
+const addBtn = document.getElementById("addMemory");
+const menu = document.getElementById("memoryMenu");
+const accept = document.getElementById("accept");
+let placingBall = null;
+let canPlace = false;
+
+// Open menu
+addBtn.addEventListener("click", () => {
+    menu.classList.remove("hidden");
+});
+
+
+// CREATE MEMORY BALL
+
+
+accept.addEventListener("click", () => {
+
+    menu.classList.add("hidden");
+
+    const emotion = document.getElementById("emotion").value;
+
+    const ball = document.createElement("div");
+
+    ball.classList.add("ballMemory");
+    ball.style.background = emotion;
+
+    document.body.appendChild(ball);
+
+    placingBall = ball;
+
+   
+    setTimeout(() => {
+        canPlace = true;
+    }, 100);
+
+});
+
+
+// FOLLOW THE MOUSE
+
+
+document.addEventListener("mousemove", (e) => {
+
+    if (!placingBall) return;
+
+    placingBall.style.left = e.clientX + "px";
+    placingBall.style.top = e.clientY + "px";
+
+});
+
+// PLACE THE BALL
+
+
+document.addEventListener("click", (e) => {
+
+    if (!placingBall || !canPlace) return;
+
+    placingBall.style.left = e.clientX + "px";
+    placingBall.style.top = e.clientY + "px";
+
+    placingBall = null;
+    canPlace = false;
+
+});
+
+const closeMenu = document.getElementById("closeMenu");
+
+if (closeMenu) {
+    closeMenu.addEventListener("click", () => {
+        menu.classList.add("hidden");
+    });
+}
+
