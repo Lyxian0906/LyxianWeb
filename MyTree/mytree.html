@@ -10,40 +10,36 @@
 		</div>
 		<div class="container">
 			<button id="goback">Go to main page</button>
-            <button id="addMemory">+</button>
+			<button id="addMemory">+</button>
 		</div>
-        <div id="memoryMenu" class="hidden">
-            <button id="closeMenu">✕</button>
+		<div id="memoryMenu" class="hidden">
+			<button id="closeMenu">✕</button>
 
-    <h2>Nueva memoria</h2>
+			<h2>Nueva memoria</h2>
 
-    <input
-        id="title"
-        type="text"
-        placeholder="Título">
+			<input id="title" type="text" placeholder="Título" />
 
-    <textarea
-        id="description"
-        placeholder="Descripción"></textarea>
+			<textarea id="description" placeholder="Descripción"></textarea>
 
-    <select id="emotion">
+			<select id="emotion">
+				<option value="yellow">Happy</option>
+				<option value="blue">Sad</option>
+				<option value="red">Angry</option>
+				<option value="green">Calm</option>
+			</select>
 
-        <option value="yellow">Happy</option>
-        <option value="blue">Sad</option>
-        <option value="red">Angry</option>
-        <option value="green">Calm</option>
+			<textarea id="notes" placeholder="Notes"></textarea>
 
-    </select>
-
-    <textarea
-        id="notes"
-        placeholder="Notes"></textarea>
-
-    <button id="accept">
-        Aceptar
-    </button>
-
-</div>
+			<button id="accept">Aceptar</button>
+		</div>
+		<div id="memoryPopup" class="hidden">
+			<h2 id="popupTitle"></h2>
+			<p id="popupEmotion"></p>
+			<p id="popupDescription"></p>
+			<p id="popupNotes"></p>
+			<button id="closePopup">Close</button>
+            <button id="deleteMemory">Delete</button>
+		</div>
 
 		<script type="module" src="../FireBase/app.js"></script>
 	</body>

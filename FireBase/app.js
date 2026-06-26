@@ -7,13 +7,21 @@ import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
 import {
     getFirestore,
-    doc,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    where,
     setDoc,
+    doc,
+    deleteDoc,
     getDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+
 const firebaseConfig = {
 
     apiKey: "AIzaSyAhrmgxBpsIkqMzy_lygy0_7z-UaZxHT4Q",
@@ -37,6 +45,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+let selectedMemory = null;
 
 import {
     setPersistence,
@@ -47,22 +56,38 @@ setPersistence(auth, browserLocalPersistence)
     .catch((error) => console.log(error));
 
 if (window.location.pathname.includes("/LyxianWeb/Register-and-login/login.html")) {
-    onAuthStateChanged(auth, (user) => {
+
+    onAuthStateChanged(auth, async (user) => {
+
         if (user) {
+
+            await loadMemories();
+
             window.location.href = "/LyxianWeb/index.html";
+
         }
+
     });
+
 }
 
 if (window.location.pathname.includes("/LyxianWeb/index.html")) {
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/LyxianWeb/Register-and-login/login.html";
-        }
-    });
-}
 
-await setPersistence(auth, browserLocalPersistence);
+    onAuthStateChanged(auth, async (user) => {
+
+        if (!user) {
+
+            window.location.href = "/LyxianWeb/Register-and-login/login.html";
+
+        } else {
+
+            await loadMemories();
+
+        }
+
+    });
+
+}
 //
 // Register
 //
@@ -247,6 +272,15 @@ if (musicBtn2 && bgMusic2) {
 }
 
 //My tree
+const MyTree = document.getElementById("MyTree");
+if (MyTree) {
+    const MyTree = document.getElementById("MyTree");
+    console.log(MyTree);
+    MyTree.addEventListener("click", () => {
+        window.location.href = "/LyxianWeb/MyTree/mytree.html";
+    });
+}
+
 //Go back 
 
 const goback = document.getElementById("goback");
@@ -263,42 +297,142 @@ if (goback) {
 
 const addBtn = document.getElementById("addMemory");
 const menu = document.getElementById("memoryMenu");
-const accept = document.getElementById("accept");
-let placingBall = null;
 let canPlace = false;
+let placingBall = null;
 
-// Open menu
-addBtn.addEventListener("click", () => {
-    menu.classList.remove("hidden");
+document.addEventListener("click", async (e) => {
+
+    if (!placingBall || !canPlace) return;
+
+    placingBall.style.left = e.clientX + "px";
+    placingBall.style.top = e.clientY + "px";
+
+    try {
+
+        await addDoc(collection(db, "users", user.uid, "memories"), {
+            uid: user.uid,
+            emotion: emotion,
+            title: document.getElementById("title").value,
+            description: document.getElementById("description").value,
+            notes: document.getElementById("notes").value,
+            createdAt: new Date()
+        });
+
+        console.log("Memory saved!");
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+    placingBall = null;
+    canPlace = false;
+
 });
+// Open menu
+if (addBtn) {
+    addBtn.addEventListener("click", () => {
+        menu.classList.remove("hidden");
+    });
+}
 
 
-// CREATE MEMORY BALL
+function openPopup(memory) {
 
+    const popup = document.getElementById("memoryPopup");
 
-accept.addEventListener("click", () => {
+    document.getElementById("popupTitle").textContent = memory.title;
+    document.getElementById("popupEmotion").textContent = memory.emotion;
+    document.getElementById("popupDescription").textContent = memory.description;
+    document.getElementById("popupNotes").textContent = memory.notes;
 
-    menu.classList.add("hidden");
+    popup.classList.remove("hidden");
+}
 
-    const emotion = document.getElementById("emotion").value;
+//Create a ball
+function createBall(memory) {
 
     const ball = document.createElement("div");
-
     ball.classList.add("ballMemory");
-    ball.style.background = emotion;
+
+    ball.style.background = memory.emotion;
+    ball.style.left = memory.x + "px";
+    ball.style.top = memory.y + "px";
+
+    // store id in the DOM element
+    ball.dataset.id = memory.id;
 
     document.body.appendChild(ball);
+    let selectedMemory = null;
 
-    placingBall = ball;
+    ball.addEventListener("click", () => {
+        selectedMemory = memory;
+        openPopup(memory);
+    });
 
-   
-    setTimeout(() => {
-        canPlace = true;
-    }, 100);
+    // CLICK = open popup
+    ball.addEventListener("click", () => {
 
-});
+        const popup = document.getElementById("memoryPopup");
 
+        document.getElementById("popupTitle").textContent = memory.title;
+        document.getElementById("popupEmotion").textContent = memory.emotion;
+        document.getElementById("popupDescription").textContent = memory.description;
+        document.getElementById("popupNotes").textContent = memory.notes;
 
+        popup.classList.remove("hidden");
+    });
+}
+// CREATE MEMORY BALL + memory, saves to firebase and then calls create a ball
+
+const accept = document.getElementById("accept");
+
+if (accept) {
+    accept.addEventListener("click", async () => {
+
+        menu.classList.add("hidden");
+
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const notes = document.getElementById("notes").value;
+        const emotion = document.getElementById("emotion").value;
+
+        const memory = {
+            uid: user.uid,
+            title,
+            description,
+            notes,
+            emotion,
+            x: 0,
+            y: 0,
+            createdAt: new Date()
+        };
+
+        try {
+            // Save to Firebase
+            const docRef = await addDoc(
+                collection(db, "users", user.uid, "memories"),
+                memory
+            );
+
+            memory.id = docRef.id;
+            createBall(memory);
+
+        } catch (error) {
+            console.log("Error saving memory:", error);
+        }
+
+        placingBall = null;
+
+        setTimeout(() => {
+            canPlace = true;
+        }, 100);
+    });
+}
 // FOLLOW THE MOUSE
 
 
@@ -334,3 +468,68 @@ if (closeMenu) {
     });
 }
 
+//Load memories
+async function loadMemories() {
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const snapshot = await getDocs(
+        collection(db, "users", user.uid, "memories")
+    );
+
+    snapshot.forEach((docSnap) => {
+
+        const memory = docSnap.data();
+
+        createBall(memory);
+    });
+}
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (user) {
+        await loadMemories();
+    } else {
+        window.location.href = "/LyxianWeb/Register-and-login/login.html";
+    }
+});
+
+
+const closePopup = document.getElementById("closePopup");
+
+if (closePopup) {
+    closePopup.addEventListener("click", () => {
+        document.getElementById("memoryPopup").classList.add("hidden");
+    });
+}
+
+//Delete a ball
+
+const deleteBtn = document.getElementById("deleteMemory");
+
+deleteBtn.addEventListener("click", async () => {
+
+    const user = auth.currentUser;
+    if (!user || !selectedMemory) return;
+
+    try {
+        await deleteDoc(
+            doc(db, "users", user.uid, "memories", selectedMemory.id)
+        );
+
+        // remove from screen
+        document.querySelectorAll(".ballMemory").forEach(ball => {
+            if (ball.dataset.id === selectedMemory.id) {
+                ball.remove();
+            }
+        });
+
+        selectedMemory = null;
+
+        document.getElementById("memoryPopup").classList.add("hidden");
+
+    } catch (error) {
+        console.log("Delete error:", error);
+    }
+});
